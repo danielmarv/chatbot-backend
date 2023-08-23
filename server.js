@@ -20,7 +20,7 @@ const automatedScenarios = [
   },
   {
     keywords: ['forgot password', 'reset password'],
-    response: 'To reset your password, please follow these steps: [Provide steps here].',
+    response: 'To reset your password, please follow these steps: [click on the Forgot password link,].',
   },
   // Add more automated scenarios as needed
 ];
@@ -54,6 +54,7 @@ app.post('/api/chat', async (req, res) => {
       });
 
       const responseData = await openaiResponse.json();
+      console.log(responseData)
       botResponse = responseData.choices[0].message.content;
     }
 
