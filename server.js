@@ -90,6 +90,10 @@ const automatedScenarios = [
     response: 'Automated AI response for weather-related queries.',
   },
   {
+    keywords: ['Hello','Hi','Hey'],
+    response: 'Hello, how can I help you Today?',
+  },
+  {
     keywords: ['forgot password', 'reset password'],
     response: 'To reset your password, please follow these steps: [click on the Forgot password link,].',
   },
