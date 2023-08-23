@@ -90,11 +90,11 @@ const automatedScenarios = [
     response: 'Automated AI response for weather-related queries.',
   },
   {
-    keywords: ['Hello','Hi','Hey'],
-    response: 'Hello, how can I help you Today?',
+    keywords: ['hello', 'hi', 'hey'],
+    response: 'Hello! How can I assist you today?',
   },
   {
-    keywords: ['forgot password', 'reset password'],
+    keywords: ['forgot password', 'reset password','hello'],
     response: 'To reset your password, please follow these steps: [click on the Forgot password link,].',
   },
   // Add more automated scenarios as needed
@@ -113,15 +113,16 @@ app.post('/api/chat', async (req, res) => {
     if (matchedScenario) {
       botResponse = matchedScenario.response;
     } else {
-      const openaiResponse = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
+      // Send user message to OpenAI API for complex queries
+      const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
         },
         body: JSON.stringify({
-          prompt: userMessage,
-          max_tokens: 50,
+          messages: [{ role: 'user', content: userMessage }],
+          model: 'gpt-3.5-turbo',
         }),
       });
 
