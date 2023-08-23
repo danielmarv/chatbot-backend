@@ -126,17 +126,22 @@ app.post('/api/chat', async (req, res) => {
       });
 
       const responseData = await openaiResponse.json();
-      const aiGeneratedResponse = responseData.choices[0].text;
-
-      // Determine your threshold value (e.g., 30 characters)
-      const YOUR_THRESHOLD_VALUE = 30;
-
-      if (aiGeneratedResponse.length <= YOUR_THRESHOLD_VALUE) {
-        // Notify for human intervention
-        botResponse = "I'm sorry, but I'm unable to provide a complete answer to your question. Let me get a human expert to assist you.";
-        // You can also consider sending a notification to your support team here
+      if (responseData.choices && responseData.choices.length > 0) {
+        const aiGeneratedResponse = responseData.choices[0].text;
+      
+        // Determine your threshold value (e.g., 30 characters)
+        const YOUR_THRESHOLD_VALUE = 30;
+      
+        if (aiGeneratedResponse.length <= YOUR_THRESHOLD_VALUE) {
+          // Notify for human intervention
+          botResponse = "I'm sorry, but I'm unable to provide a complete answer to your question. Let me get a human expert to assist you.";
+          // You can also consider sending a notification to your support team here
+        } else {
+          botResponse = aiGeneratedResponse;
+        }
       } else {
-        botResponse = aiGeneratedResponse;
+        // Handle the case where responseData.choices is empty or undefined
+        botResponse = "I'm sorry, but I'm currently unable to provide an answer. Let me get a human expert to assist you.";
       }
     }
 
