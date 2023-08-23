@@ -1,10 +1,14 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
+import cors from 'cors'; // Import the cors middleware
 
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
+
+// Use the cors middleware
+app.use(cors());
 
 app.use(express.json());
 
