@@ -1,3 +1,3 @@
 # chatbot-backend
  Help Live Chatbot backend
- This just a draft
+ This is just a draft
